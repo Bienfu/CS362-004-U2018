@@ -1220,7 +1220,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   return -1;
 }
 
-int cardEffectAdventurer ( struct gameState *state, int currentPlayer)
+int cardEffectAdventurer ( struct gameState *currentPlayer, int state)
 {
   // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 
