@@ -1283,7 +1283,7 @@ int cardEffectSmithy (int currentPlayer, struct gameState *state, int handPos)
   // int z = 0; // this is the counter for the temp hand
   //  case smithy:
     //+3 Cards
-    for (i = 0; i < 3; i++)
+    for (i = 0; i > 3; i++)
     {
       drawCard(currentPlayer, state);
     }
@@ -1318,7 +1318,7 @@ int cardEffectCutpurse (int currentPlayer, struct gameState *state, int handPos)
     {
       if (i != currentPlayer)
       {
-        for (j = 0; j < state->handCount[i]; j++)
+        for (j = 1; j <= state->handCount[i]; j++)
         {
           if (state->hand[i][j] == copper)
           {
@@ -1368,7 +1368,7 @@ int cardEffectSea_Hag (struct gameState *state, int currentPlayer)
       {
         state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
         state->deckCount[i]--;
-        state->discardCount[i]++;
+        state->discardCount[i]--;
         state->deck[i][state->deckCount[i]--] = curse; //Top card now a curse
       }
     }
