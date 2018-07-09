@@ -764,7 +764,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   {
   case adventurer:
     
-    return cardEffectAdventurer (drawntreasure, state, currentPlayer, cardDrawn, temphand, z);
+    return cardEffectAdventurer (state, currentPlayer);
 
   case council_room:
     //+4 Cards
@@ -859,7 +859,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
   case smithy:
     
-    return cardEffectSmithy (i, currentPlayer, state, handPos);
+    return cardEffectSmithy (currentPlayer, state, handPos);
 
   case baron:
     state->numBuys++; //Increase buys by 1!
@@ -1139,7 +1139,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
   case cutpurse:
 
-    return cardEffectCutpurse (currentPlayer, state, i, j, k, handPos);
+    return cardEffectCutpurse (currentPlayer, state, handPos);
 
   case embargo:
     //+2 Coins
@@ -1184,7 +1184,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
   case sea_hag:
     
-    return cardEffectSea_Hag (state, i, currentPlayer);
+    return cardEffectSea_Hag (state, currentPlayer);
 
   case treasure_map:
     //search hand for another treasure_map
@@ -1220,7 +1220,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   return -1;
 }
 
-int cardEffectAdventurer (int drawntreasure, struct gameState *state, int currentPlayer, int cardDrawn, int temphand, int z)
+int cardEffectAdventurer ( struct gameState *state, int currentPlayer)
 {
   // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 
@@ -1234,10 +1234,11 @@ int cardEffectAdventurer (int drawntreasure, struct gameState *state, int curren
 
   // int tributeRevealedCards[2] = {-1, -1};
   // int temphand[MAX_HAND]; // moved above the if statement
-  // int drawntreasure = 0;
-  // int cardDrawn;
-  // int z = 0; // this is the counter for the temp hand
+  int drawntreasure = 0;
+  int cardDrawn;
+  int z = 0; // this is the counter for the temp hand
   // case adventurer:
+  int temphand[MAX_HAND];
     while (drawntreasure < 2)
     {
       if (state->deckCount[currentPlayer] < 1)
@@ -1263,11 +1264,11 @@ int cardEffectAdventurer (int drawntreasure, struct gameState *state, int curren
     return 0;
 }
 
-int cardEffectSmithy (int i, int currentPlayer, struct gameState *state, int handPos)
+int cardEffectSmithy (int currentPlayer, struct gameState *state, int handPos)
 {
   // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 
-  // int i;
+  int i;
   // int j;
   // int k;
   // int x;
@@ -1293,13 +1294,13 @@ int cardEffectSmithy (int i, int currentPlayer, struct gameState *state, int han
 
 }
 
-int cardEffectCutpurse (int currentPlayer, struct gameState *state, int i, int j, int k, int handPos)
+int cardEffectCutpurse (int currentPlayer, struct gameState *state, int handPos)
 {
   // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 
-  // int i;
-  // int j;
-  // int k;
+  int i;
+  int j;
+  int k;
   // int x;
   // int index;
   // int currentPlayer = whoseTurn(state);
@@ -1343,11 +1344,11 @@ int cardEffectCutpurse (int currentPlayer, struct gameState *state, int i, int j
     return 0;
 }
 
-int cardEffectSea_Hag (struct gameState *state, int i, int currentPlayer)
+int cardEffectSea_Hag (struct gameState *state, int currentPlayer)
 {
   // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 
-  // int i;
+  int i;
   // int j;
   // int k;
   // int x;
@@ -1374,20 +1375,20 @@ int cardEffectSea_Hag (struct gameState *state, int i, int currentPlayer)
     return 0;
 }
 
-int cardEffectFeast (int i, struct gameState *state, int currentPlayer, int temphand, int x, int choice1)
+int cardEffectFeast ( state, currentPlayer, choice1)
 {
   // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 
-  // int i;
+  int i;
   // int j;
   // int k;
-  // int x;
+  int x;
   // int index;
   // int currentPlayer = whoseTurn(state);
   // int nextPlayer = currentPlayer + 1;
 
   // int tributeRevealedCards[2] = {-1, -1};
-  // int temphand[MAX_HAND]; // moved above the if statement
+  int temphand[MAX_HAND]; // moved above the if statement
   // int drawntreasure = 0;
   // int cardDrawn;
   // int z = 0; // this is the counter for the temp hand
