@@ -130,6 +130,8 @@ int main()
         fill = !fill;
     }
 
+    printf("testing scoreFor \n");
+
     memset(&G, 23, sizeof(struct gameState));   // clear the game state
     r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
     G.handCount[p] = initialSize;

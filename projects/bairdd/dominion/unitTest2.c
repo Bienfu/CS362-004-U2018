@@ -44,6 +44,8 @@ int main() {
                , remodel, smithy, village, baron, great_hall};
     struct gameState G;
 
+    printf("testing isGameOver \n");
+
     memset(&G, 23, sizeof(struct gameState));   // clear the game state
     r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
     completionValue = isGameOver(&G); //all supplies are full
