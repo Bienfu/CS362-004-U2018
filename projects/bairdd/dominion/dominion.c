@@ -1241,21 +1241,34 @@ int cardEffectAdventurer ( struct gameState *state, int currentPlayer)
   int temphand[MAX_HAND];
     while (drawntreasure < 2)
     {
+      if(state->deckCount[currentPlayer] == 0 && state->discardCount[currentPlayer] == 0){
+        // printf("out of Cards!!!!\n");
+        break;
+      }
       if (state->deckCount[currentPlayer] < 1)
       { //if the deck is empty we need to shuffle discard and add to deck
+      //  printf("shuffle called\n");
         shuffle(currentPlayer, state);
       }
       drawCard(currentPlayer, state);
       cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1]; //top card of hand is most recently drawn card.
+      // printf("treasure total %i \n", drawntreasure);
       if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
         drawntreasure++;
       else
       {
+        //        printf("hand called z: %i\n",z);
+        // printf(" pre handCount %i deckCount %i DiscardCount %i\n", state->handCount[currentPlayer],state->deckCount[currentPlayer],state->discardCount[currentPlayer]);
+
         temphand[z] = cardDrawn;
+             
         state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+              //  printf("finish hand called\n\n");
         z++;
+
       }
     }
+    // printf("help me\n");
     while (z - 1 >= 0)
     {
       state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
@@ -1362,13 +1375,22 @@ int cardEffectSea_Hag (struct gameState *state, int currentPlayer)
   // int cardDrawn;
   // int z = 0; // this is the counter for the temp hand
   //   case sea_hag:
+
+
     for (i = 0; i < state->numPlayers; i++)
     {
+
       if (i != currentPlayer)
       {
+
+        // printf("infucntion bfore deck top card = %i\n\n", state->deck[i][state->deckCount[i]-1]);
         state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]-1];
+        // printf("infucntion discard top card +1 = %i\n\n", state->discard[i][state->discardCount[i]]);
+
         state->discardCount[i]++;
+        // printf("infucntion discard top card = %i\n\n", state->discard[i][state->discardCount[i]-1]);
         state->deck[i][state->deckCount[i]-1] = curse; //Top card now a curse
+
       }
     }
     return 0;
